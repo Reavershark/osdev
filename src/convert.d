@@ -2,6 +2,7 @@ module convert;
 
 string itoa(int value, int base)
 {
+    uint stringSize;
     char[256] arr = '\0';
     char * str = arr.ptr;
     char * rc;
@@ -12,6 +13,12 @@ string itoa(int value, int base)
     {
         return "\0";
     }
+    // Set final string length
+    if (value >= 0)
+        stringSize = (value / base) + 1;
+    else
+        stringSize = (-1 * value / base) + 1;
+
     rc = ptr = str;
     // Set '-' for negative decimals.
     if ( value < 0 && base == 10 )
@@ -36,6 +43,6 @@ string itoa(int value, int base)
         *low++ = *ptr;
         *ptr-- = tmp;
     }
-    string result = cast(string)arr;
+    string result = cast(string)arr[0 .. stringSize];
     return result;
 }
