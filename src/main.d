@@ -2,6 +2,7 @@ module main;
 
 import terminal;
 import serial;
+import io;
  
 extern(C) void main(uint magic, uint addr) {
 
@@ -35,7 +36,14 @@ extern(C) void main(uint magic, uint addr) {
     terminal.writeln("    ", "Printing int '-1333': ", -1333);
     terminal.writeln();
     terminal.writeln(":/");
-
+    int lastKey = 0;
+    int key = 0;
     for (;;) {
+        key = cast(int)inp!ubyte(0x60);
+        if (key != lastKey)
+        {
+            terminal.writeln(key);
+        }
+        lastKey = key;
     }
 }
